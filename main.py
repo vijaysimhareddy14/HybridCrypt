@@ -1,5 +1,6 @@
 from cipher import encrypt
 from cipher import decrypt
+
 from key_schedule import generate_round_keys
 
 
@@ -7,8 +8,7 @@ def menu():
 
     while True:
 
-        print()
-        print("===== HybridCrypt =====")
+        print("\n===== HybridCrypt =====")
         print("1. Encrypt")
         print("2. Decrypt")
         print("3. Exit")
@@ -17,7 +17,7 @@ def menu():
 
         if choice == "1":
 
-            text = input(
+            plaintext = input(
                 "Enter plaintext: "
             )
 
@@ -30,20 +30,19 @@ def menu():
             )
 
             encrypted = encrypt(
-                text,
+                plaintext,
                 round_keys
             )
 
-            print()
             print(
-                "Cipher (hex):",
+                "\nCipher (hex):",
                 encrypted.hex()
             )
 
         elif choice == "2":
 
             cipher_hex = input(
-                "Cipher hex: "
+                "Enter cipher hex: "
             )
 
             key = input(
@@ -63,9 +62,8 @@ def menu():
                 round_keys
             )
 
-            print()
             print(
-                "Plaintext:",
+                "\nPlaintext:",
                 decrypted
             )
 
