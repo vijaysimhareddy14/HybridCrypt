@@ -1,5 +1,21 @@
+
+---
+
+# .gitignore
+
+```gitignore
 __pycache__/
+
 *.pyc
-.env
-.vscode/
+
 .DS_Store
+
+.vscode/
+
+.idea/
+
+.env
+
+*.enc
+
+*.hyb
