@@ -140,5 +140,5 @@ Hybrid Encrypted File
 Clone repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/HybridCrypt.git
+git clone https://github.com/vijaysimhareddy14/HybridCrypt.git
 cd HybridCrypt
