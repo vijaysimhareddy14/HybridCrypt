@@ -1,10 +1,10 @@
 import hashlib
 
 
-def generate_round_keys(key, rounds=8):
-    seed = key.encode()
-
+def generate_round_keys(key, rounds=12):
     keys = []
+
+    seed = key.encode()
 
     for i in range(rounds):
         digest = hashlib.sha256(

@@ -9,6 +9,10 @@ from permutation import (
     inverse_permute_block
 )
 
+from mix import (
+    mix_block,
+    inverse_mix_block
+)
 
 BLOCK_SIZE = 8
 
@@ -47,9 +51,13 @@ def encrypt(plaintext, round_keys):
                 start:start + BLOCK_SIZE
             ]
 
+            block = permute_block(block)
+
+            block = mix_block(block)
+
             data[
                 start:start + BLOCK_SIZE
-            ] = permute_block(block)
+            ] = block
 
     return bytes(data)
 
@@ -72,11 +80,17 @@ def decrypt(ciphertext, round_keys):
                 start:start + BLOCK_SIZE
             ]
 
-            data[
-                start:start + BLOCK_SIZE
-            ] = inverse_permute_block(
+            block = inverse_mix_block(
                 block
             )
+
+            block = inverse_permute_block(
+                block
+            )
+
+            data[
+                start:start + BLOCK_SIZE
+            ] = block
 
         key = round_keys[r]
 

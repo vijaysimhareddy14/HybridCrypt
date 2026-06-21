@@ -8,16 +8,18 @@ def count_bit_differences(a, b):
 
     for x, y in zip(a, b):
 
-        xor_value = x ^ y
-
-        diff += bin(xor_value).count("1")
+        diff += bin(
+            x ^ y
+        ).count("1")
 
     return diff
 
 
 def avalanche_test(text, key):
 
-    round_keys = generate_round_keys(key)
+    round_keys = generate_round_keys(
+        key
+    )
 
     cipher1 = encrypt(
         text,
@@ -26,13 +28,13 @@ def avalanche_test(text, key):
 
     modified = list(text)
 
-    if modified:
+    modified[0] = chr(
+        ord(modified[0]) ^ 1
+    )
 
-        modified[0] = chr(
-            ord(modified[0]) ^ 1
-        )
-
-    modified = "".join(modified)
+    modified = "".join(
+        modified
+    )
 
     cipher2 = encrypt(
         modified,
@@ -44,7 +46,9 @@ def avalanche_test(text, key):
         cipher2
     )
 
-    total_bits = len(cipher1) * 8
+    total_bits = len(
+        cipher1
+    ) * 8
 
     percentage = (
         changed_bits /
