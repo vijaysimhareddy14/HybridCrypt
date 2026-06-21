@@ -5,16 +5,23 @@ from key_schedule import generate_round_keys
 
 from avalanche import avalanche_test
 
+from file_crypto import (
+    encrypt_file,
+    decrypt_file
+)
+
 
 def menu():
 
     while True:
 
         print("\n===== HybridCrypt =====")
-        print("1. Encrypt")
-        print("2. Decrypt")
+        print("1. Encrypt Text")
+        print("2. Decrypt Text")
         print("3. Avalanche Test")
-        print("4. Exit")
+        print("4. Encrypt File")
+        print("5. Decrypt File")
+        print("6. Exit")
 
         choice = input("Choice: ")
 
@@ -93,6 +100,46 @@ def menu():
             )
 
         elif choice == "4":
+
+            input_file = input(
+                "Input file: "
+            )
+
+            output_file = input(
+                "Output file: "
+            )
+
+            key = input(
+                "Key: "
+            )
+
+            encrypt_file(
+                input_file,
+                output_file,
+                key
+            )
+
+        elif choice == "5":
+
+            input_file = input(
+                "Encrypted file: "
+            )
+
+            output_file = input(
+                "Output file: "
+            )
+
+            key = input(
+                "Key: "
+            )
+
+            decrypt_file(
+                input_file,
+                output_file,
+                key
+            )
+
+        elif choice == "6":
 
             print("Bye")
             break
