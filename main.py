@@ -10,6 +10,17 @@ from file_crypto import (
     decrypt_file
 )
 
+from rsa import (
+    generate_keys
+)
+
+from hybrid_crypto import (
+    hybrid_encrypt_file,
+    hybrid_decrypt_file
+)
+
+public_key, private_key = generate_keys()
+
 
 def menu():
 
@@ -21,18 +32,20 @@ def menu():
         print("3. Avalanche Test")
         print("4. Encrypt File")
         print("5. Decrypt File")
-        print("6. Exit")
+        print("6. Hybrid Encrypt File")
+        print("7. Hybrid Decrypt File")
+        print("8. Exit")
 
         choice = input("Choice: ")
 
         if choice == "1":
 
             plaintext = input(
-                "Enter plaintext: "
+                "Plaintext: "
             )
 
             key = input(
-                "Enter key: "
+                "Key: "
             )
 
             round_keys = generate_round_keys(
@@ -45,46 +58,42 @@ def menu():
             )
 
             print(
-                "\nCipher (hex):",
                 encrypted.hex()
             )
 
         elif choice == "2":
 
             cipher_hex = input(
-                "Enter cipher hex: "
+                "Cipher Hex: "
             )
 
             key = input(
-                "Enter key: "
+                "Key: "
             )
 
             round_keys = generate_round_keys(
                 key
             )
 
-            cipher_bytes = bytes.fromhex(
-                cipher_hex
-            )
-
-            decrypted = decrypt(
-                cipher_bytes,
+            plaintext = decrypt(
+                bytes.fromhex(
+                    cipher_hex
+                ),
                 round_keys
             )
 
             print(
-                "\nPlaintext:",
-                decrypted
+                plaintext
             )
 
         elif choice == "3":
 
             text = input(
-                "Enter text: "
+                "Text: "
             )
 
             key = input(
-                "Enter key: "
+                "Key: "
             )
 
             changed, total, percent = avalanche_test(
@@ -92,21 +101,26 @@ def menu():
                 key
             )
 
-            print("\nChanged Bits :", changed)
-            print("Total Bits   :", total)
             print(
-                "Avalanche %  :",
-                round(percent, 2)
+                f"\nChanged Bits : {changed}"
+            )
+
+            print(
+                f"Total Bits   : {total}"
+            )
+
+            print(
+                f"Avalanche %  : {percent:.2f}"
             )
 
         elif choice == "4":
 
             input_file = input(
-                "Input file: "
+                "Input File: "
             )
 
             output_file = input(
-                "Output file: "
+                "Output File: "
             )
 
             key = input(
@@ -122,11 +136,11 @@ def menu():
         elif choice == "5":
 
             input_file = input(
-                "Encrypted file: "
+                "Encrypted File: "
             )
 
             output_file = input(
-                "Output file: "
+                "Output File: "
             )
 
             key = input(
@@ -141,12 +155,45 @@ def menu():
 
         elif choice == "6":
 
-            print("Bye")
+            input_file = input(
+                "Input File: "
+            )
+
+            output_file = input(
+                "Output File: "
+            )
+
+            hybrid_encrypt_file(
+                input_file,
+                output_file,
+                public_key
+            )
+
+        elif choice == "7":
+
+            input_file = input(
+                "Encrypted File: "
+            )
+
+            output_file = input(
+                "Output File: "
+            )
+
+            hybrid_decrypt_file(
+                input_file,
+                output_file,
+                private_key
+            )
+
+        elif choice == "8":
+
             break
 
         else:
 
-            print("Invalid option")
+            print(
+                "Invalid choice"
+            )
 
 
 if __name__ == "__main__":
