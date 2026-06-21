@@ -3,6 +3,8 @@ from cipher import decrypt
 
 from key_schedule import generate_round_keys
 
+from avalanche import avalanche_test
+
 
 def menu():
 
@@ -11,7 +13,8 @@ def menu():
         print("\n===== HybridCrypt =====")
         print("1. Encrypt")
         print("2. Decrypt")
-        print("3. Exit")
+        print("3. Avalanche Test")
+        print("4. Exit")
 
         choice = input("Choice: ")
 
@@ -68,6 +71,28 @@ def menu():
             )
 
         elif choice == "3":
+
+            text = input(
+                "Enter text: "
+            )
+
+            key = input(
+                "Enter key: "
+            )
+
+            changed, total, percent = avalanche_test(
+                text,
+                key
+            )
+
+            print("\nChanged Bits :", changed)
+            print("Total Bits   :", total)
+            print(
+                "Avalanche %  :",
+                round(percent, 2)
+            )
+
+        elif choice == "4":
 
             print("Bye")
             break
